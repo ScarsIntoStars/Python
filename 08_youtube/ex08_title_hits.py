@@ -14,7 +14,7 @@ def scroll_fun():
 
 
 # 크롬 브라우저 실행
-driver = webdriver.Chrome()
+driver = webdriver.Edge()
 
 # 접속할 주소
 driver.get("https://www.youtube.com/")
