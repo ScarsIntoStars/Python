@@ -28,7 +28,8 @@ def scroll_fun():
         if h2==last:
             break
     # 제목 가져오기
-    titles = driver.find_elements(By.XPATH, '//*[@id="video-title"]')
+    titles = driver.find_elements(By.CSS_SELECTOR, '[id="video-title"]')
+    # titles = driver.find_elements(By.XPATH, '//*[@id="video-title"]')
     return titles
 
 # 무한스크롤 함수 호출
