@@ -14,29 +14,36 @@ def scroll_fun():
 
 
 # 크롬 브라우저 실행
-driver = webdriver.Edge()
+driver = webdriver.Chrome()
 
 # 접속할 주소
-driver.get("https://www.youtube.com/")
+# driver.get("https://www.youtube.com/")
+# 인기 금상승 페이지 접속
+driver.get("https://www.youtube.com/feed/trending/")
+
 
 # 검색창 접근
-search_element = driver.find_element(By.CSS_SELECTOR, 'input#search')
+# search_element = driver.find_element(By.CSS_SELECTOR, 'input#search')
 
-# 검색어 입력
-search_element.send_keys("르세라핌")
+# # 검색어 입력
+# search_element.send_keys("르세라핌")
 
 
 # 검색버튼 클릭
-search_click = driver.find_element(By.CSS_SELECTOR, 'button#search-icon-legacy')
-search_click.click()
+# search_click = driver.find_element(By.CSS_SELECTOR, 'button#search-icon-legacy')
+# search_click.click()
 
-# 엔터치기
-search_element.send_keys(Keys.RETURN)
+# # 엔터치기
+# search_element.send_keys(Keys.RETURN)
 time.sleep(5)
 
 # 제목 가져오기
+title_list = []
+# 제목 저장을 위한 리스트
+hits_list = []
+# 조회수 저장을 위한 리스트
 scroll_fun()
-titles = driver.find_elements(By.XPATH, '//*[@id="video-title-link"]')
+titles = driver.find_elements(By.XPATH, '//*[@id="video-title"]')
 for title in titles:
     if title.get_attribute("aria-label"): # shorts 영상을 걸러내기 위한 조건문         
         # aria-label 속성값 가져오기
@@ -46,6 +53,17 @@ for title in titles:
         end_index = aria_label.rfind("회")
         hits = aria_label[start_index:end_index]
         hits = int(hits.replace(",",""))
-        print("제목", title.get_attribute("title"))
-        print("조회수", hits)
-   
+        # print("제목", title.get_attribute("title"))
+        # print("조회수", hits)
+        # 제목, 조회수를 각각 리스트에 담기
+        # append(): 리스트에 데이터를 추가할 때
+        title_list.append(title.text)
+        hits_list.append(hits)
+
+# 리스트 데이터 확인
+# print("제목 리스트", title_list)
+# print("조회수 리스트", hits_list)
+    
+# 제목, 조회수 리스트 함께 조회
+for title, hit in zip(title_list, hits_list):
+    print(title, hit)
