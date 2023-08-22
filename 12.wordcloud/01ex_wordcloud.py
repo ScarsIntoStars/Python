@@ -4,7 +4,9 @@ from collections import Counter
 import matplotlib.pyplot as plt
 
 okt = Okt()
-text = "파이썬은 즐거워 파이썬은 맛있어 파이썬은 달달해 파이썬 만세 만세 만세 오늘의 점심은 파이썬이다. 내일의 점심은 파이썬이다. 오늘 저녁은 자바 내일의 저녁은 자바"
+text = "파이썬은 즐거워 파이썬은 맛있어 파이썬은 달달해 파이썬 만세 만세 만세 오늘의 점심은 파이썬이다. 내일의 점심은 파이썬이다. 오늘 저녁은 자바 내일의 저녁은 자바를 먹어야겠다."
+text += "파이썬이여 당신은 왜 파이썬입니까 다른 이름도 많을텐데 파이썬이라니 너무 놀랍습니다. 파이썬은 역시 파이썬이 어울리는 이름입니다,"
+text += "파이썬은 초코파이썬입니까 아니면 민초파이썬입니까 저는 민초파이썬이라면 너무 행복할 것 같습니다. 파이썬 민초파이썬 화이팅"
 word_list = []
 # 명사(Moun), 형용사(Adjective)만 따로 출력
 for word, tag in okt.pos(text):
@@ -27,3 +29,5 @@ plt.axis('off') # x, y축은 필요없으므로 생략
 plt.imshow(result)
 # 이미지 출력
 plt.show()
+# 워드클라우드 파일 저장
+wc.to_file('wordcloud_result.png')

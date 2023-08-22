@@ -53,16 +53,9 @@ for title in titles:
         end_index = aria_label.rfind("회")
         hits = aria_label[start_index:end_index]
         hits = int(hits.replace(",",""))
-        # print("제목", title.get_attribute("title"))
-        # print("조회수", hits)
-        # 제목, 조회수를 각각 리스트에 담기
-        # append(): 리스트에 데이터를 추가할 때
+      
         title_list.append(title.text)
         hits_list.append(hits)
-
-# 리스트 데이터 확인
-# print("제목 리스트", title_list)
-# print("조회수 리스트", hits_list)
     
 # 제목, 조회수 리스트 함께 조회
 for title, hit in zip(title_list, hits_list):
