@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from collections import Counter
 from PIL import Image
 from konlpy.tag import * 
+import pymysql
 
 plt.rcParams['font.family'] = 'Malgun Gothic'
 plt.rcParams['axes.unicode_minus'] = False
@@ -32,6 +33,8 @@ driver = webdriver.Chrome()
 driver.get("https://www.youtube.com/feed/trending?bp=6gQJRkVleHBsb3Jl")
 
 time.sleep(5)
+
+scroll_fun()
 
 # 제목 가져오기
 title_list = []
@@ -66,9 +69,23 @@ for title in titles:
             title_list.append(title.text)
             hits_list.append(hits)
 
-# 제목, 조회수 리스트 함께 조회
-for title, hit in zip(title_list, hits_list):
-    print(title, hit)
+
+
+
+conn = pymysql.connect(
+    host='127.0.0.1',
+    user='user_python',
+    password='1234',
+    db='db_python',
+    charset='utf8mb4')
+
+cur = conn.cursor()
+sql = "insert into `table1`(title, hit) values(%s, %s);"
+tuple_result = list(zip(title_list, hits_list))
+cur.executemany(sql, tuple_result) # 많은 데이터를 한 번에 넣는 함수 익스큐트매니
+
+conn.commit()
+
 
 # 제목, 조회수 리스트가 담긴 딕셔너리
 crawling_result = {
@@ -84,8 +101,8 @@ result.sort_values(by=["hits"], ascending=False).to_csv("./result.csv", encoding
 
 okt = Okt()
 
-for word, tag in okt.pos(title):
-    print(word, tag)
+# for word, tag in okt.pos(title):
+#     print(word, tag)
 
 # 제목 리스트에서 명사, 형용사 추출 
 word_list = []
